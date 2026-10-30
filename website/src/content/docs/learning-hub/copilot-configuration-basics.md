@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-22
+lastUpdated: 2026-10-30
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -282,6 +282,8 @@ copilot --dynamic-retrieval skills=off
 
 This setting persists across sessions once saved to your config.
 
+**Semantic code search**: Embeddings-based semantic search over your repository's code is enabled by default for online sessions. This lets the agent find conceptually related code even when the exact function or variable name is not known. To disable it, use `--dynamic-retrieval code=off`.
+
 **When to use**: For repetitive tasks your team performs regularly, like generating tests, creating documentation, or refactoring patterns.
 
 ### Instructions Files
@@ -301,6 +303,8 @@ When writing TypeScript code:
 - Always handle null/undefined with optional chaining
 - Use async/await instead of raw promises
 ```
+
+Instructions in `.github/instructions/` with an `applyTo` glob are applied automatically whenever the agent reads or edits a file that matches the pattern — you don't need to reference them explicitly in your prompt.
 
 **When to use**: For project-wide coding standards, architectural patterns, or technology-specific conventions that should influence all suggestions.
 
@@ -454,6 +458,8 @@ The model picker opens in a **full-screen view** with inline reasoning effort ad
 `/model` changes the model for the **current session only** by default. Use `/config model` to set the default model for future sessions.
 
 **Auto mode and server-side model routing**: When you select **Auto** as your model, the CLI uses server-side model routing for real-time model selection. Instead of locking in a single model at session start, Auto mode evaluates each request and routes it to the most appropriate model dynamically. This means straightforward questions can be handled by a faster model while complex reasoning tasks are automatically escalated — without you needing to switch models manually.
+
+**Managed fusion model and `fusionTier`**: When your organization or account is assigned a managed model named `fusion`, sessions start on **Auto** and the `fusionTier` setting controls the quality tier used for routing. Set `fusionTier` in `/config` (or `.github/copilot/settings.json`) to `high` or `max` to request higher-capability routing for that repository. The `/model` picker marks the administrator-assigned managed model as the default when it is available.
 
 **Model family aliases**: Instead of typing a full model name, you can use short family aliases in the model setting: `opus`, `sonnet`, `haiku` (Anthropic), and `gpt`, `gemini` (Google/OpenAI). The CLI resolves the alias to the latest available model in that family. This is especially useful in scripts or configuration files where you want to track the best model in a family without hardcoding a version string. Current models include **Claude Opus 5** and **Claude Fable 5.1** (Anthropic), **Grok 4.5** and **Grok 4.6** (xAI, with `xhigh` reasoning effort support), **Gemini 3.7 Flash** (Google), and **GPT-6 Astra** (OpenAI). The model picker also periodically retires older models no longer worth recommending, so don't be surprised if a model you previously pinned disappears from the list — check [Compatibility and Migration Notes](#compatibility-and-migration-notes) if that happens.
 
@@ -765,7 +771,7 @@ Use `/autopilot` when you want to flip between supervised and unsupervised opera
 
 > **Enhanced autopilot**: When autopilot mode is active — including when launched with `--autopilot` at startup or during automatic continuation turns — the agent automatically handles elicitation dialogs, `ask_user` prompts, sampling requests, and permission prompts without surfacing them as interactive dialogs. This means long-running automated sessions can proceed end-to-end without manual confirmation steps.
 
-> **Auto allow-all mode**: In addition to the standard allow-all mode (which approves everything), the CLI supports an **auto allow-all** mode that uses an LLM judge to evaluate each tool request. When enabled, the judge automatically approves requests it evaluates as acceptable, and asks you for manual confirmation only for requests it considers risky. This gives you a middle ground between full autopilot and fully supervised operation — most routine actions proceed automatically while unusual or potentially dangerous actions still surface for your review. This mode requires experimental features to be enabled — use `/experimental on` or start the CLI with `--experimental` — then activate it with `/allow-all auto`. See [Compatibility and Migration Notes](#compatibility-and-migration-notes) if you previously relied on the `AUTO_APPROVAL` environment variable for this.
+> **Auto allow-all mode**: In addition to the standard allow-all mode (which approves everything), the CLI supports an **auto allow-all** (Assisted Permissions) mode that uses an LLM judge to evaluate each tool request. When enabled, the judge automatically approves requests it evaluates as acceptable, and asks you for manual confirmation only for requests it considers risky. This gives you a middle ground between full autopilot and fully supervised operation — most routine actions proceed automatically while unusual or potentially dangerous actions still surface for your review. Activate it with `/allow-all auto`. See [Compatibility and Migration Notes](#compatibility-and-migration-notes) if you previously relied on the `AUTO_APPROVAL` environment variable for this.
 
 > **Read-only `gh` CLI commands**: Read-only `gh` commands — such as `gh issue list`, `gh pr view`, `gh run status`, and other commands that don't write to GitHub — are **automatically approved** without a permission prompt. Only commands that write to GitHub (like creating issues, merging PRs) still require explicit approval. This reduces friction during exploratory sessions where you frequently check issue or PR status.
 
@@ -962,7 +968,7 @@ This section collects settings and behaviors that **changed or were renamed** in
 - **`worktreeBaseRef` now defaults to `HEAD` for all worktree-creation paths.** The `--worktree` startup flag previously defaulted to branching from the remote default branch instead.
 - **Sandbox local network access is now allowed by default.** Earlier releases blocked localhost and private-network access from sandboxed commands. Current releases allow it, so commands can reach local services; turn off **Allow local network** in `/sandbox` if you want the stricter isolation. Linux sandboxing also requires `slirp4netns`, `nsenter`, `iptables`, `ip6tables`, `iptables-restore`, and `ip6tables-restore` on `PATH`.
 - **`copilot plugins` lost its cross-kind flags.** The `--kind`, `--scope`, `--mcp`, and `--skill` flags were removed; `copilot plugins list` is now an alias of `copilot plugin list` and reports only plugins. Scripts using `copilot plugins install --skill [--scope project]` should switch to `copilot skill add [--project]`, and scripts reading `.plugins` from `copilot plugins list --json` should expect a flat array instead of the previous `{ plugins, errors }` object.
-- **Auto allow-all mode requires experimental mode.** The previous `AUTO_APPROVAL` environment variable approach was removed in favor of `/experimental on` (or `--experimental`) plus `/allow-all auto`.
+- **Auto allow-all (Assisted Permissions) no longer requires experimental mode.** It was previously behind `/experimental on` (or `--experimental`); it is now available to all users with `/allow-all auto`. The earlier `AUTO_APPROVAL` environment variable approach was removed.
 - **Ctrl+D no longer queues messages.** It now uses its default terminal behavior; use **Ctrl+Q** or **Ctrl+Enter** to queue a message instead.
 - **The CLI's command-line parser was rewritten** (moving off Commander to a Rust-based grammar). As a result, some error and help wording changed, `copilot login --host` now works correctly, and `--max-autopilot-continues` no longer accepts scientific notation as a value.
 - **Model availability changes over time.** The model picker periodically retires older models; if a model you previously pinned in a custom agent or config disappears from `/model`, switch to a current model or a [family alias](#model-picker) instead.
