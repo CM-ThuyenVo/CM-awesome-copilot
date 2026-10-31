@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-10-30
+lastUpdated: 2026-10-31
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -876,6 +876,14 @@ copilot --config-dir ~/.my-copilot-config
 
 Set `COPILOT_HOME` in your shell profile to use a custom config directory across all sessions. This is especially useful when running multiple Copilot configurations for different projects or teams.
 
+The `COPILOT_PROVIDER_GHES_HOST` environment variable connects the CLI to a GitHub Enterprise Server instance. Set it to the instance's browser address — for example, `https://ghes.example.com/`:
+
+```bash
+export COPILOT_PROVIDER_GHES_HOST=https://ghes.example.com/
+```
+
+The CLI accepts either the full browser URL (with scheme and trailing slash) or a bare hostname; both forms work without error.
+
 ### Shell Completion
 
 The `copilot completion` subcommand generates a static shell completion script for subcommands, flags, and known option values. Once installed, pressing Tab auto-completes Copilot CLI commands in your terminal.
@@ -968,6 +976,7 @@ This section collects settings and behaviors that **changed or were renamed** in
 - **`worktreeBaseRef` now defaults to `HEAD` for all worktree-creation paths.** The `--worktree` startup flag previously defaulted to branching from the remote default branch instead.
 - **Sandbox local network access is now allowed by default.** Earlier releases blocked localhost and private-network access from sandboxed commands. Current releases allow it, so commands can reach local services; turn off **Allow local network** in `/sandbox` if you want the stricter isolation. Linux sandboxing also requires `slirp4netns`, `nsenter`, `iptables`, `ip6tables`, `iptables-restore`, and `ip6tables-restore` on `PATH`.
 - **`copilot plugins` lost its cross-kind flags.** The `--kind`, `--scope`, `--mcp`, and `--skill` flags were removed; `copilot plugins list` is now an alias of `copilot plugin list` and reports only plugins. Scripts using `copilot plugins install --skill [--scope project]` should switch to `copilot skill add [--project]`, and scripts reading `.plugins` from `copilot plugins list --json` should expect a flat array instead of the previous `{ plugins, errors }` object.
+- **`--remote`/`--no-remote` startup flags were retired.** Use the clearer hosting and connection flags introduced in v1.0.103 instead (`--host`, `--connect`, and related flags). Scripts passing `--remote` or `--no-remote` will need to be updated.
 - **Auto allow-all (Assisted Permissions) no longer requires experimental mode.** It was previously behind `/experimental on` (or `--experimental`); it is now available to all users with `/allow-all auto`. The earlier `AUTO_APPROVAL` environment variable approach was removed.
 - **Ctrl+D no longer queues messages.** It now uses its default terminal behavior; use **Ctrl+Q** or **Ctrl+Enter** to queue a message instead.
 - **The CLI's command-line parser was rewritten** (moving off Commander to a Rust-based grammar). As a result, some error and help wording changed, `copilot login --host` now works correctly, and `--max-autopilot-continues` no longer accepts scientific notation as a value.
