@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-10-31
+lastUpdated: 2026-11-02
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -542,6 +542,8 @@ In the session picker, press **`s`** to cycle the sort order: relevance, last us
 With the sidebar open, you can see all running and backgrounded sessions in a split-view panel alongside your active conversation. Sessions are listed with their name, working directory, and running status. Click or keyboard-navigate (arrow keys, **n** to spawn, **x** twice to close) to switch sessions instantly. Use this when you regularly juggle several parallel workstreams and want a persistent view of all your sessions rather than accessing them through the `/resume` picker.
 
 **Sidebar sort order**: The split Sessions sidebar supports **Recent**, **Created**, **Name**, and classic **None** sorting so you can order the list the way that fits your workflow. Your chosen order is remembered across CLI restarts.
+
+**Session management tools and @mentions**: When you opt in to session management tools, the CLI exposes `session_history` search and `read_item` retrieval as tools the agent can call during a conversation — enabling workflows where the agent browses your past sessions to surface related context. Once session management tools are enabled for a session, other local sessions you have open also become referenceable via `@mention` in that session, so you can pull in context from a parallel session mid-conversation. Enable session management tools from `/settings` or via `--enable-session-management` at startup.
 
 **Windows 11 taskbar status**: On Windows 11, running Copilot CLI sessions appear in the taskbar with live hover status cards, so you can check on a background session's progress without switching back to its terminal window.
 
