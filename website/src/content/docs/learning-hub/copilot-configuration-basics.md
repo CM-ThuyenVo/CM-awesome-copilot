@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-02
+lastUpdated: 2026-11-03
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -477,13 +477,13 @@ When you leave plan mode, the CLI automatically reverts to your session model. T
 
 ### CLI Session Commands
 
-The `/settings` command opens an interactive dialog to browse and edit all user settings in one place. Use it to discover available settings, toggle options, and update values without manually editing your config file:
+The `/settings` command opens a **unified dashboard** that centralizes all user settings together with your local resources (agents, skills, MCP servers, and instructions). Use it to discover available settings, toggle options, and update values without manually editing your config file:
 
 ```
 /settings
 ```
 
-The settings dialog supports search — type to filter settings by name. Changes take effect immediately.
+The settings dashboard includes **global search** — type to filter across settings and local resources by name. Changes take effect immediately.
 
 The `/settings` command and the `/model` command both support **`--repo` and `--local` flags** for explicitly scoping which layer of settings you want to view or edit:
 

@@ -3,7 +3,7 @@ title: 'Getting Started with the GitHub Copilot app'
 description: 'Learn about the GitHub Copilot app, a desktop experience built for agent-native development. Understand its key features and who it''s for.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-12
+lastUpdated: 2026-11-03
 estimatedReadingTime: '8 minutes'
 tags:
   - copilot-app
@@ -54,9 +54,13 @@ Instead of checking GitHub, your CLI, and VS Code for updates, everything is in 
 
 ### Automations
 
-The Copilot app includes built-in automations that can run scheduled tasks for you using the same agentic technology. You can use templates out of the box or create your own.
+The Copilot app includes built-in automations that can run recurring tasks for you using the same agentic technology. You can use templates out of the box or create your own.
 
-Automations run in the context of a repository, so they can access issues, pull requests, and code. You can also choose whether they run as a plan, an interactive session, or on autopilot.
+Automations come in two types:
+- **Local automations** run from your machine using your local environment, MCP servers, and credentials.
+- **Cloud automations** run on GitHub's infrastructure and continue executing even when your computer is off.
+
+Automations run in the context of a repository, so they can access issues, pull requests, and code. Triggers include schedules (hourly, daily, weekly), repository events (new issue, new PR), or on-demand. You can also choose whether they run as a plan, an interactive session, or on autopilot.
 
 ### Isolated Worktrees for Parallel Work
 
@@ -128,6 +132,18 @@ Open app settings directly from the message composer with **`/settings`** *(v1.1
 *(v1.1.20+)* If two installed plugins each ship a custom agent with the same display name, the agent picker now distinguishes them by their owning plugin, so you can tell at a glance which agent you're selecting when names collide.
 
 > **Terminology note (v1.1.20+)**: The "Start from scratch" option in session creation menus and project pickers has been renamed to **"Chat"**.
+
+### `/chronicle` — Standup Summaries and Session History
+
+The **`/chronicle`** command generates standup summaries and session history insights from your Copilot app sessions. Use it to quickly create a progress update based on recent agent activity—useful for daily standups, sprint reviews, or keeping stakeholders informed without manually reviewing session transcripts.
+
+### Voice Dictation for Prompts
+
+You can configure a keyboard shortcut to **transcribe speech into prompts** within the GitHub Copilot app. This lets you compose long or complex prompts hands-free, which is especially useful when directing agents while reviewing code or switching between windows.
+
+### WSL 2 Session Support (Experimental)
+
+The GitHub Copilot app includes experimental support for running agent sessions inside **Windows Subsystem for Linux 2 (WSL 2)** distributions. This lets Windows developers work against Linux-native toolchains and environments without leaving the app's unified session management.
 
 ## Who is the Copilot app for?
 
