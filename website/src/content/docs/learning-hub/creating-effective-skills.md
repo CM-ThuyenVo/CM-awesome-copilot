@@ -3,7 +3,7 @@ title: 'Creating Effective Skills'
 description: 'Master the art of writing reusable, shareable skill folders that deliver consistent results across your team.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-01
+lastUpdated: 2026-11-04
 estimatedReadingTime: '9 minutes'
 tags:
   - skills
@@ -99,6 +99,8 @@ skills/
     └── scripts/
         └── setup-test-env.sh        # Environment setup
 ```
+
+> **Common mistake**: Do not place a `SKILL.md` directly inside the skills root directory (e.g., `skills/SKILL.md`). Each skill must live in its own subfolder. If Copilot CLI detects a top-level `SKILL.md` in a skills directory, it shows a warning in `/skills` explaining that subdirectories are the resources and how to load them correctly.
 
 Reference these assets in your SKILL.md instructions:
 

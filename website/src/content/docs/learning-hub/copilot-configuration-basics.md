@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-03
+lastUpdated: 2026-11-04
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -677,6 +677,14 @@ The `/diagnose` command analyzes the current session's logs and surfaces diagnos
 
 Use `/diagnose` when a session is behaving unexpectedly — it inspects session logs and reports what it finds, making it easier to share diagnostics with support or understand what happened internally.
 
+The `/code` command opens the current session in VS Code, letting you switch from the terminal CLI to an IDE view without losing your session context:
+
+```
+/code
+```
+
+Use `/code` when you want to continue a session in VS Code's Copilot Chat panel — for example, after using the CLI for exploration and wanting to move to an IDE for editing.
+
 **Keyboard shortcuts for queuing messages**: Use **Ctrl+Q** or **Ctrl+Enter** to queue a message (send it while the agent is still working). **Ctrl+D** has its default terminal behavior and does not queue messages — if you have muscle memory for Ctrl+D queuing, switch to Ctrl+Q.
 
 **Directable queue manager**: While the agent is working, you can manage your queued messages before they are sent. Open the queue manager to **reorder**, **edit**, **remove**, or **repeat** queued messages — even send one immediately out of turn. This is useful when you think of a better follow-up mid-run or want to reprioritize what the agent works on next.
@@ -685,7 +693,9 @@ Use `/diagnose` when a session is behaving unexpectedly — it inspects session 
 
 **Shell command history in normal mode**: The **↑/↓** arrow keys and **Ctrl+R** reverse search include past shell commands (commands run with `!`) while you are in normal (non-shell) input mode, so you can recall and re-run a shell command without switching into shell mode first — useful for quickly repeating a build, test, or diagnostic command from earlier in the session.
 
-**Inline image rendering**: The CLI can display images inline in the terminal when your terminal supports it. If an MCP tool, agent, or attachment returns an image, it is rendered directly in the conversation timeline rather than shown as a file path or URL. This works in terminals with image protocol support (such as iTerm2, Kitty, Wezterm, and tmux with appropriate configuration).
+**Inline image rendering**: The CLI can display images inline in the terminal when your terminal supports it. If an MCP tool, agent, or attachment returns an image, it is rendered directly in the conversation timeline rather than shown as a file path or URL. This works in terminals with image protocol support (such as iTerm2, Kitty, Wezterm, and tmux with appropriate configuration). Rex terminals additionally support **Kitty direct placements** for inline image rendering.
+
+**Local model downloads (Windows)**: On Windows, when you select a local model, `llama.cpp` is now installed automatically if it is not already present, and the CLI shows engine installation progress inline. You no longer need to install it separately before using local models.
 
 **Voice dictation**: Press **Ctrl+Space** to toggle voice dictation on or off, letting you speak a prompt instead of typing it.
 
@@ -962,6 +972,8 @@ In Assisted permission mode, the `assistedApprovalInstructions` setting lets you
 ### Memory and Session Import
 
 Session and memory import commands accept the semantic JSONL interchange format, making it possible to bring saved session history or memory entries into Copilot CLI from an external export rather than starting from scratch.
+
+`/memory show` now indicates when the **repository memory scope is unavailable** for the current session — for example, when the session is running without a git repository or without internet access. This makes it easier to understand why repository-level memories may not be loading.
 
 ### Command-Line Parsing
 
