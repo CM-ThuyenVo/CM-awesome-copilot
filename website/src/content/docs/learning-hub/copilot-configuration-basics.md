@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-04
+lastUpdated: 2026-11-05
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -857,7 +857,7 @@ These flags apply only to the current invocation — your persisted sandbox pref
 
 The `--attachment` flag (available in prompt mode, `-p`) lets you attach files — images or native documents — to the initial prompt in non-interactive mode:
 
-**Browser-based OAuth login**: `copilot login` defaults to the browser (web) flow on local interactive terminals. A browser tab opens, you authenticate with GitHub, and the CLI is authorized without typing a device code. On remote or headless terminals (SSH sessions, CI), device code remains the default. You can force a specific flow with `--web-flow` or `--device-code`, or choose interactively with the `/login` command:
+**Browser-based OAuth login**: `copilot login` defaults to the browser (web) flow on local interactive terminals. A browser tab opens, you authenticate with GitHub, and the CLI is authorized without typing a device code. On remote or headless terminals (SSH sessions, CI), device code remains the default. You can force a specific flow with `--web-flow` or `--device-code`, or choose interactively with the `/login` command. On Windows and macOS, **OneAuth** is used as the default Microsoft Entra sign-in path, giving you a consistent experience when authenticating with Entra-backed services or MCP servers.
 
 ```bash
 copilot login               # browser flow on local terminals, device code on remote/headless
