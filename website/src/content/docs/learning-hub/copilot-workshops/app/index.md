@@ -2,7 +2,7 @@
 title: "Real-World Development with GitHub Copilot app"
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-10-08
+lastUpdated: 2026-11-05
 description: "Practice agent-driven development with the GitHub Copilot app and the Tailspin Toys workshop."
 tags:
   - workshop
@@ -20,7 +20,7 @@ The workshop follows one continuous Tailspin Toys workflow:
 6. Add the Playwright Model Context Protocol (MCP) server and use it to explore filtering in a browser.
 7. Create a quality assurance (QA) custom agent and use it to review requirements, coverage, and verification evidence.
 8. Review the complete filtering change and use Agent Merge for the second PR.
-9. Use the existing Database Explorer canvas, then create and test a repository-backed triage canvas.
+9. Check canvas availability, then use Database Explorer and create and test a repository-backed triage canvas. If required capabilities are unavailable, record the blocker and use the read-only alternative or continue to the wrap-up.
 
 To keep the workshop focused, you'll create two PRs: star ratings, then filtering with the instruction updates, skill update, QA profile, and tests. Start each from updated `main`. The filtering and quality workflow shares one session, worktree, and branch so you can build on your work as you explore each tool. The final canvas exercise stays in its session so you can focus on creating and testing the shared surface rather than repeating the PR workflow.
 
@@ -37,7 +37,7 @@ To keep the workshop focused, you'll create two PRs: star ratings, then filterin
 | [6. Validate functionality with Playwright MCP][ex6] | Browser observation | Configure MCP through Customize and inspect filtering behavior |
 | [7. Create and use a QA agent][ex7] | Requirements and coverage | Create and select a specialist profile, then gather final verification evidence |
 | [8. Create and merge the feature PR][ex8] | Review and merge | Review filtering, instructions, the skill, QA profile, and tests, then use Agent Merge for the second PR |
-| [9. Explore and create canvases][ex9] | Collaboration | Use Database Explorer, then create and test a repository-backed triage canvas |
+| [9. Explore and create canvases][ex9] | Collaboration | Check canvas availability, then use Database Explorer and create and test a repository-backed triage canvas |
 | [10. Wrap-up and next steps][ex10] | Summary | Review the workflow, artifacts, and further resources |
 
 ## Prerequisites
@@ -55,7 +55,7 @@ Before attending this workshop, please ensure you have:
 > Because the Copilot app runs on your own machine rather than in a codespace, [the prerequisites exercise][ex0] walks you through installing Node.js and creating your copy of the project before you install the app.
 
 > [!NOTE]
-> If you are using Copilot Business or Copilot Enterprise, your administrator must enable the **Copilot CLI** policy before you can use the app.
+> If you are using Copilot Business or Copilot Enterprise, your administrator must keep the **GitHub Copilot app** policy enabled. This is separate from the Copilot CLI policy.
 
 ## Get Started
 

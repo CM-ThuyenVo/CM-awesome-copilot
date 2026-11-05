@@ -3,7 +3,7 @@ title: "GitHub Copilot app 둘러보기"
 description: "Space Quiz를 만들고 출시하면서 GitHub Copilot app을 단계별로 살펴봅니다."
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-10-05
+lastUpdated: 2026-11-05
 tags:
   - workshop
 ---
@@ -31,7 +31,8 @@ tags:
 | [9. 이슈 분류 자동화][lesson-9] | 자동화 | 주간 이슈 분류 자동화를 예약하고 실행합니다 |
 | [10. 원격으로 세션 이어가기][lesson-10] | 원격(선택 사항) | `/remote`로 진행 중인 로컬 세션을 웹이나 모바일에서 확인합니다 |
 | [11. Canvas 살펴보기][lesson-11] | Canvas | Repository Issues Kanban Canvas에서 작업을 시작합니다 |
-| [12. 복습 및 다음 단계][lesson-12] | 복습 | 워크플로를 돌아보고 학습을 이어갑니다 |
+| [12. GitHub Pages로 사이트 배포하기][lesson-12] | 배포 | Pages 워크플로를 검토하고 병합한 다음 게시된 사이트를 확인합니다 |
+| [13. 복습 및 다음 단계][lesson-13] | 복습 | 워크플로를 돌아보고 학습을 이어갑니다 |
 
 ## 시작하기
 
@@ -52,4 +53,5 @@ tags:
 [lesson-9]: /ko-kr/learning-hub/copilot-workshops/first-steps/copilot-app/9-automations/
 [lesson-10]: /ko-kr/learning-hub/copilot-workshops/first-steps/copilot-app/10-remote/
 [lesson-11]: /ko-kr/learning-hub/copilot-workshops/first-steps/copilot-app/11-canvas/
-[lesson-12]: /ko-kr/learning-hub/copilot-workshops/first-steps/copilot-app/12-review/
+[lesson-12]: /ko-kr/learning-hub/copilot-workshops/first-steps/copilot-app/12-deploy-pages/
+[lesson-13]: /ko-kr/learning-hub/copilot-workshops/first-steps/copilot-app/13-review/

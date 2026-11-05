@@ -66,6 +66,21 @@ const workshopRedirects = Object.fromEntries(
   }),
 );
 
+// Redirect the old first-steps copilot-app lesson 12 (review) to lesson 13
+// after upstream renumbered to insert a new deploy-pages lesson as 12.
+const firstStepsAppLessonRenames = {
+  "12-review": "13-review",
+};
+const firstStepsAppRedirects = Object.fromEntries(
+  ["", "es-es", "ja-jp", "ko-kr", "pt-br", "zh-cn"].flatMap((locale) => {
+    const prefix = `/${locale ? `${locale}/` : ""}learning-hub/copilot-workshops/first-steps/copilot-app/`;
+    return Object.entries(firstStepsAppLessonRenames).map(([previous, current]) => [
+      `${prefix}${previous}/`,
+      `${prefix}${current}/`,
+    ]);
+  }),
+);
+
 // https://astro.build/config
 export default defineConfig({
   site,
@@ -109,6 +124,7 @@ export default defineConfig({
   integrations: [react(), sitemap(), pagefindResources()],
   redirects: {
     ...workshopRedirects,
+    ...firstStepsAppRedirects,
     "/samples/": "/learning-hub/cookbook/",
     "/hooks/": "https://github.com/github/awesome-copilot/tree/main/hooks",
     "/workflows/": "https://github.com/github/awesome-copilot/tree/main/workflows",
