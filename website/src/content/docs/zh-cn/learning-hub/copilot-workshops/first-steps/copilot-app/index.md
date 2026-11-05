@@ -3,7 +3,7 @@ title: "GitHub Copilot app 导览"
 description: "通过构建并交付 Space Quiz，在引导下探索 GitHub Copilot app。"
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-10-05
+lastUpdated: 2026-11-05
 tags:
   - workshop
 ---
@@ -31,7 +31,8 @@ tags:
 | [9. 自动化议题分类][lesson-9] | 自动化 | 安排并运行每周议题分类自动化任务 |
 | [10. 远程继续会话][lesson-10] | 远程（可选） | 使用 `/remote` 从网页或移动端查看正在进行的本地会话 |
 | [11. 探索 Canvas][lesson-11] | Canvas | 从 Repository Issues Kanban Canvas 开始工作 |
-| [12. 回顾与后续步骤][lesson-12] | 回顾 | 回顾工作流并继续学习 |
+| [12. 使用 GitHub Pages 部署网站][lesson-12] | 部署 | 查看并合并 Pages 工作流，然后确认已发布的网站 |
+| [13. 回顾与后续步骤][lesson-13] | 回顾 | 回顾工作流并继续学习 |
 
 ## 开始学习
 
@@ -52,4 +53,5 @@ tags:
 [lesson-9]: /zh-cn/learning-hub/copilot-workshops/first-steps/copilot-app/9-automations/
 [lesson-10]: /zh-cn/learning-hub/copilot-workshops/first-steps/copilot-app/10-remote/
 [lesson-11]: /zh-cn/learning-hub/copilot-workshops/first-steps/copilot-app/11-canvas/
-[lesson-12]: /zh-cn/learning-hub/copilot-workshops/first-steps/copilot-app/12-review/
+[lesson-12]: /zh-cn/learning-hub/copilot-workshops/first-steps/copilot-app/12-deploy-pages/
+[lesson-13]: /zh-cn/learning-hub/copilot-workshops/first-steps/copilot-app/13-review/

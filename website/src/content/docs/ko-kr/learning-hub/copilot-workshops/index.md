@@ -2,7 +2,7 @@
 title: "GitHub Copilot 워크숍"
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-10-05
+lastUpdated: 2026-11-05
 tags:
   - workshop
 ---

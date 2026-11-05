@@ -3,7 +3,7 @@ title: "Recorrido por la aplicación GitHub Copilot"
 description: "Realiza un recorrido guiado por la aplicación GitHub Copilot creando y entregando un Space Quiz."
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-10-05
+lastUpdated: 2026-11-05
 tags:
   - workshop
 ---
@@ -31,7 +31,8 @@ El taller dura aproximadamente entre 60 y 90 minutos. El proyecto utiliza un ún
 | [9. Automatizar la clasificación de incidencias][lesson-9] | Automatización | Programa y ejecuta una automatización semanal de clasificación de incidencias |
 | [10. Continuar una sesión de forma remota][lesson-10] | Acceso remoto (opcional) | Sigue una sesión local en curso desde la web o el móvil con `/remote` |
 | [11. Explorar un Canvas][lesson-11] | Canvas | Empieza a trabajar desde un Canvas de Repository Issues Kanban |
-| [12. Repaso y pasos siguientes][lesson-12] | Repaso | Repasa el flujo de trabajo y sigue aprendiendo |
+| [12. Publicar el sitio con GitHub Pages][lesson-12] | Publicación | Revisa y combina un flujo de trabajo de Pages y comprueba el sitio publicado |
+| [13. Repaso y pasos siguientes][lesson-13] | Repaso | Repasa el flujo de trabajo y sigue aprendiendo |
 
 ## Primeros pasos
 
@@ -52,4 +53,5 @@ El taller dura aproximadamente entre 60 y 90 minutos. El proyecto utiliza un ún
 [lesson-9]: /es-es/learning-hub/copilot-workshops/first-steps/copilot-app/9-automations/
 [lesson-10]: /es-es/learning-hub/copilot-workshops/first-steps/copilot-app/10-remote/
 [lesson-11]: /es-es/learning-hub/copilot-workshops/first-steps/copilot-app/11-canvas/
-[lesson-12]: /es-es/learning-hub/copilot-workshops/first-steps/copilot-app/12-review/
+[lesson-12]: /es-es/learning-hub/copilot-workshops/first-steps/copilot-app/12-deploy-pages/
+[lesson-13]: /es-es/learning-hub/copilot-workshops/first-steps/copilot-app/13-review/

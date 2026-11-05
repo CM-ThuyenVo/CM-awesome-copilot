@@ -43,8 +43,8 @@ The Canvas provides a visual way to select and begin work while keeping the agen
 
 ## Summary and next steps
 
-You used a shared visual surface to start an agent session. Continue to [Lesson 12: Review and next steps][next-lesson].
+You used a shared visual surface to start an agent session. Continue to [Lesson 12: Deploy the site with GitHub Pages][next-lesson].
 
 [canvas-gallery]: https://awesome-copilot.github.com/extensions/
 [kanban-extension]: https://awesome-copilot.github.com/extension/accessibility-kanban/
-[next-lesson]: /learning-hub/copilot-workshops/first-steps/copilot-app/12-review/
+[next-lesson]: /learning-hub/copilot-workshops/first-steps/copilot-app/12-deploy-pages/
