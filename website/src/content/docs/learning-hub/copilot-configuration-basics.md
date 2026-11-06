@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-05
+lastUpdated: 2026-11-06
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -461,7 +461,7 @@ The model picker opens in a **full-screen view** with inline reasoning effort ad
 
 **Managed fusion model and `fusionTier`**: When your organization or account is assigned a managed model named `fusion`, sessions start on **Auto** and the `fusionTier` setting controls the quality tier used for routing. Set `fusionTier` in `/config` (or `.github/copilot/settings.json`) to `high` or `max` to request higher-capability routing for that repository. The `/model` picker marks the administrator-assigned managed model as the default when it is available.
 
-**Model family aliases**: Instead of typing a full model name, you can use short family aliases in the model setting: `opus`, `sonnet`, `haiku` (Anthropic), and `gpt`, `gemini` (Google/OpenAI). The CLI resolves the alias to the latest available model in that family. This is especially useful in scripts or configuration files where you want to track the best model in a family without hardcoding a version string. Current models include **Claude Opus 5** and **Claude Fable 5.1** (Anthropic), **Grok 4.5** and **Grok 4.6** (xAI, with `xhigh` reasoning effort support), **Gemini 3.7 Flash** (Google), and **GPT-6 Astra** (OpenAI). The model picker also periodically retires older models no longer worth recommending, so don't be surprised if a model you previously pinned disappears from the list — check [Compatibility and Migration Notes](#compatibility-and-migration-notes) if that happens.
+**Model family aliases**: Instead of typing a full model name, you can use short family aliases in the model setting: `opus`, `sonnet`, `haiku` (Anthropic), and `gpt`, `gemini` (Google/OpenAI). The CLI resolves the alias to the latest available model in that family. This is especially useful in scripts or configuration files where you want to track the best model in a family without hardcoding a version string. Current models include **Claude Opus 5** and **Claude Fable 5.1** (Anthropic), **Grok 4.5** and **Grok 4.6** (xAI, with `xhigh` reasoning effort support), **Gemini 3.7 Flash** (Google), **GPT-6 Astra** and **GPT-6.1 Terra** (OpenAI, available under **New models** when your account is enrolled). The model picker also periodically retires older models no longer worth recommending, so don't be surprised if a model you previously pinned disappears from the list — check [Compatibility and Migration Notes](#compatibility-and-migration-notes) if that happens.
 
 **Model fallback lists**: Custom agents can set `model` to a list of several models instead of a single name. Copilot tries each one in order until it finds one available to your account — useful when your preferred model is temporarily rate-limited or not enrolled. Pair this with `model-policy: required` to keep the agent restricted to that list even if you try to switch models mid-session. See [Building Custom Agents](../building-custom-agents/) for the frontmatter syntax.
 
@@ -849,6 +849,8 @@ These flags apply only to the current invocation — your persisted sandbox pref
 
 **`allowDevToolAccess` sandbox setting**: When the sandbox is enabled, this setting grants sandboxed builds access to toolchain caches, registries, config files, and installs (npm cache, pip cache, Go module cache, etc.) so builds work without extra setup. Set it to `false` in `/settings` to opt out if you want a stricter sandbox that blocks all toolchain access. See [Compatibility and Migration Notes](#compatibility-and-migration-notes) if you have an older `allowDevToolCaches` value configured.
 
+**Sandbox extensions setting**: The **Sandbox extensions** setting controls whether extension processes (agent tools and plugins) run inside the OS-level sandbox. Enable it in `/settings` → Sandbox to isolate extension code from your host filesystem and network — useful when running third-party plugins you have not fully audited.
+
 **Sandbox auth settings**: The `/sandbox` configuration dialog groups git, `gh`, and (on macOS) keychain settings under an **Auth** tab, backed by the `sandbox.auth.git` and `sandbox.auth.gh` settings keys. See [Compatibility and Migration Notes](#compatibility-and-migration-notes) if you have the older `sandbox.gitAuth`/`sandbox.ghAuth` keys configured.
 
 **`worktreeBaseRef` setting**: Controls whether `/worktree`, `/worktree new`, and the `--worktree` startup flag create the new worktree from `HEAD` or from the remote default branch. All three default to `HEAD`. Set this in `/settings` if you want worktrees to branch from the remote default instead.
@@ -887,6 +889,13 @@ copilot --config-dir ~/.my-copilot-config
 ```
 
 Set `COPILOT_HOME` in your shell profile to use a custom config directory across all sessions. This is especially useful when running multiple Copilot configurations for different projects or teams.
+
+The `COPILOT_SESSION_CWD` environment variable sets the working directory used when launching LSP servers and expanding local MCP server configurations. Set it to override the directory that Copilot CLI uses as the session root for those expansions — useful when the CLI is launched from a wrapper script or CI harness whose working directory differs from your project root:
+
+```bash
+export COPILOT_SESSION_CWD=/path/to/project
+copilot
+```
 
 The `COPILOT_PROVIDER_GHES_HOST` environment variable connects the CLI to a GitHub Enterprise Server instance. Set it to the instance's browser address — for example, `https://ghes.example.com/`:
 
