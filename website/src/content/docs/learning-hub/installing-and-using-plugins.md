@@ -265,6 +265,10 @@ copilot plugin install "ghapp://air/install?..."
 
 Plugins from trusted repositories install and update automatically before chat runs, and Team-assigned plugins can come from Team-defined GitHub marketplaces. The built-in browser plugin is now named `browser-use`; existing preferences keep working.
 
+### Organization-Managed Plugin Assignments
+
+Organization administrators can assign plugins to users or teams through the GitHub Copilot policy settings. Assigned plugins with the `defaultEnabled` state are automatically installed and activated for all eligible users at session start — no manual installation step is needed. Users can still individually disable these plugins through `/plugin`, and their preferences are preserved across updates. Plugins assigned as `defaultEnabled` appear with a **managed** badge in `/plugin list` to distinguish them from user-installed plugins.
+
 ### Loading Plugins from a Local Directory
 
 You can load plugins directly from a local directory without installing them from a marketplace, using the `--plugin-dir` flag when starting Copilot:

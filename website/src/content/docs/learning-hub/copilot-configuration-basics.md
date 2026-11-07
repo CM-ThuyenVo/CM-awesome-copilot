@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-06
+lastUpdated: 2026-11-07
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -283,6 +283,15 @@ copilot --dynamic-retrieval skills=off
 This setting persists across sessions once saved to your config.
 
 **Semantic code search**: Embeddings-based semantic search over your repository's code is enabled by default for online sessions. This lets the agent find conceptually related code even when the exact function or variable name is not known. To disable it, use `--dynamic-retrieval code=off`.
+
+**Repository indexing (`/index`)**: For eligible repositories, Copilot CLI enables managed shared tgrep indexing by default, giving the agent faster and more comprehensive structural code search. Use the `/index` commands to view indexing status or manually trigger an index refresh:
+
+```
+/index status    # check indexing status for the current repository
+/index refresh   # trigger a manual index refresh
+```
+
+Managed indexing is shared and cached server-side for eligible repositories, so the first query after a code change may trigger a background re-index. No configuration is required — it activates automatically when available for your account.
 
 **When to use**: For repetitive tasks your team performs regularly, like generating tests, creating documentation, or refactoring patterns.
 
@@ -781,7 +790,7 @@ The `/autopilot` command is a quick in-session toggle that switches between **in
 
 Use `/autopilot` when you want to flip between supervised and unsupervised operation mid-session without typing out the full `/allow-all on` or `/allow-all off` commands.
 
-> **Enhanced autopilot**: When autopilot mode is active — including when launched with `--autopilot` at startup or during automatic continuation turns — the agent automatically handles elicitation dialogs, `ask_user` prompts, sampling requests, and permission prompts without surfacing them as interactive dialogs. This means long-running automated sessions can proceed end-to-end without manual confirmation steps.
+> **Enhanced autopilot**: When autopilot mode is active — including when launched with `--autopilot` at startup or during automatic continuation turns — the agent automatically handles elicitation dialogs, `ask_user` prompts, sampling requests, and permission prompts without surfacing them as interactive dialogs. This means long-running automated sessions can proceed end-to-end without manual confirmation steps. When running in Autopilot with **Assisted Permissions** (`/allow-all auto`), the agent no longer stops when a tool request is declined by the judge — instead, it tries an alternative approach and reports which actions it could not complete.
 
 > **Auto allow-all mode**: In addition to the standard allow-all mode (which approves everything), the CLI supports an **auto allow-all** (Assisted Permissions) mode that uses an LLM judge to evaluate each tool request. When enabled, the judge automatically approves requests it evaluates as acceptable, and asks you for manual confirmation only for requests it considers risky. This gives you a middle ground between full autopilot and fully supervised operation — most routine actions proceed automatically while unusual or potentially dangerous actions still surface for your review. Activate it with `/allow-all auto`. See [Compatibility and Migration Notes](#compatibility-and-migration-notes) if you previously relied on the `AUTO_APPROVAL` environment variable for this.
 
@@ -973,6 +982,8 @@ Run `/config` to open a dedicated sidebar configuration screen inside the CLI, g
 ### Sandbox Session Control
 
 `/sandbox` can keep sandboxing enabled for the current session only, without changing your global setting. Sandboxed commands can use `HTTPS_PROXY` and `HTTP_PROXY` for host-rule traffic when no sandbox proxy is configured, and sandboxed git on github.com can use a `GITHUB_TOKEN` supplied through `credentials.envVars`. When sandboxed commands inherit your host proxy settings, `NO_PROXY` and `ALL_PROXY` are honored too.
+
+**Windows enumerate-only directory grants**: On Windows, the `sandbox.userPolicy.filesystem.enumeratePaths` setting in `settings.json` lets you grant sandboxed commands enumerate-only access to specific directories — they can list directory contents without being allowed to read file contents. This is useful when a tool needs to discover what exists in a path (such as a package cache or build output directory) without needing full read access to every file.
 
 ### Assisted Permissions Guidance
 
