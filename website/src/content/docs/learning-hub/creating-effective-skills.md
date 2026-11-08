@@ -3,7 +3,7 @@ title: 'Creating Effective Skills'
 description: 'Master the art of writing reusable, shareable skill folders that deliver consistent results across your team.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-04
+lastUpdated: 2026-11-08
 estimatedReadingTime: '9 minutes'
 tags:
   - skills
@@ -450,5 +450,12 @@ Now that you understand effective skills, you can:
 1. This article (creating effective skills)
 2. [Building Custom Agents](../building-custom-agents/) — More sophisticated workflows
 3. Choosing the Right Customization _(coming soon)_ — Decision guidance
+
+## Compatibility and Migration Notes
+
+This section collects behavior changes from past releases. Everything above describes current behavior.
+
+- **Skill name matching is case-insensitive.** Since **v1.0.108**, `disabledSkills` entries, `skills.disable`, and `skills.enable` in your settings match skill names in any letter case — the same way invoking a skill already worked. Before v1.0.108, a case mismatch silently did nothing, so a disabled or enabled skill entry might have had no effect. Check your settings if you have entries that never seemed to apply.
+- **Removing a skill forgets its disabled state.** Since **v1.0.107**, `copilot skill remove` and `/skills remove` also clear any persisted disabled state for that skill name. Before v1.0.107, if you removed a skill and later installed a different skill with the same name, the new skill would start in a disabled state unexpectedly.
 
 ---
