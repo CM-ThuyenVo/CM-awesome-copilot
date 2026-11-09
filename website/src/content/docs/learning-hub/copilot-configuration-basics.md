@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-07
+lastUpdated: 2026-11-09
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -678,6 +678,15 @@ The `/chronicle skills review` subcommand opens an interactive review flow for p
 
 This keeps you in control of skill evolution — the agent can propose skill improvements as it discovers reusable patterns, but nothing is applied until you explicitly approve each change.
 
+The `/changelog` command displays the release notes for a specific version, even if that version is not bundled with your current CLI build:
+
+```
+/changelog             # show the changelog for the current CLI version
+/changelog v1.0.105    # retrieve release notes for a specific past version
+```
+
+Use `/changelog <version>` to look up what changed in any release without leaving your terminal session.
+
 The `/diagnose` command analyzes the current session's logs and surfaces diagnostic information to help troubleshoot unexpected behavior, performance issues, or errors:
 
 ```
@@ -751,6 +760,8 @@ The `/compact` command summarizes the conversation history to free up context wi
 ```
 /compact
 ```
+
+Press **Ctrl+C** (or **Esc Esc**) to stop a running `/compact` if you change your mind mid-summarization.
 
 > **Note**: Skills remain loaded and effective after `/compact`. You do not need to re-invoke them after compacting.
 
@@ -957,6 +968,8 @@ copilot plugin enable my-plugin  # enable a specific plugin
 copilot mcp disable my-server    # disable a specific MCP server
 copilot skill enable my-skill    # enable a specific skill
 ```
+
+Skill names in `disabledSkills`, `skills.disable`, and `skills.enable` are matched **case-insensitively**, so `Generate-Tests` and `generate-tests` resolve to the same skill. Previously, a case mismatch would silently do nothing.
 
 See [Compatibility and Migration Notes](#compatibility-and-migration-notes) if you have scripts using the older cross-kind `copilot plugins` flags.
 
