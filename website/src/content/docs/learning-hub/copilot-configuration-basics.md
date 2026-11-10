@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-09
+lastUpdated: 2026-11-10
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -470,7 +470,7 @@ The model picker opens in a **full-screen view** with inline reasoning effort ad
 
 **Managed fusion model and `fusionTier`**: When your organization or account is assigned a managed model named `fusion`, sessions start on **Auto** and the `fusionTier` setting controls the quality tier used for routing. Set `fusionTier` in `/config` (or `.github/copilot/settings.json`) to `high` or `max` to request higher-capability routing for that repository. The `/model` picker marks the administrator-assigned managed model as the default when it is available.
 
-**Model family aliases**: Instead of typing a full model name, you can use short family aliases in the model setting: `opus`, `sonnet`, `haiku` (Anthropic), and `gpt`, `gemini` (Google/OpenAI). The CLI resolves the alias to the latest available model in that family. This is especially useful in scripts or configuration files where you want to track the best model in a family without hardcoding a version string. Current models include **Claude Opus 5** and **Claude Fable 5.1** (Anthropic), **Grok 4.5** and **Grok 4.6** (xAI, with `xhigh` reasoning effort support), **Gemini 3.7 Flash** (Google), **GPT-6 Astra** and **GPT-6.1 Terra** (OpenAI, available under **New models** when your account is enrolled). The model picker also periodically retires older models no longer worth recommending, so don't be surprised if a model you previously pinned disappears from the list — check [Compatibility and Migration Notes](#compatibility-and-migration-notes) if that happens.
+**Model family aliases**: Instead of typing a full model name, you can use short family aliases in the model setting: `opus`, `sonnet`, `haiku` (Anthropic), and `gpt`, `gemini` (Google/OpenAI). The CLI resolves the alias to the latest available model in that family. This is especially useful in scripts or configuration files where you want to track the best model in a family without hardcoding a version string. Current models include **Claude Opus 5** and **Claude Fable 5.1**, **Claude Fable 5.2** (Anthropic, available under **New models** when your account is enrolled), **Grok 4.5** and **Grok 4.6** (xAI, with `xhigh` reasoning effort support), **Gemini 3.7 Flash** (Google), **GPT-6 Astra** and **GPT-6.1 Terra** (OpenAI, available under **New models** when your account is enrolled). The model picker also periodically retires older models no longer worth recommending, so don't be surprised if a model you previously pinned disappears from the list — check [Compatibility and Migration Notes](#compatibility-and-migration-notes) if that happens.
 
 **Model fallback lists**: Custom agents can set `model` to a list of several models instead of a single name. Copilot tries each one in order until it finds one available to your account — useful when your preferred model is temporarily rate-limited or not enrolled. Pair this with `model-policy: required` to keep the agent restricted to that list even if you try to switch models mid-session. See [Building Custom Agents](../building-custom-agents/) for the frontmatter syntax.
 
@@ -990,7 +990,7 @@ Run `/config` to open a dedicated sidebar configuration screen inside the CLI, g
 
 ### Sandbox Network Allow/Deny Rules
 
-`/sandbox` supports per-host network allow/deny rules that layer on top of your configured upstream proxy, instead of replacing it. This lets you permit or block specific hosts for sandboxed commands without reconfiguring your whole proxy setup — useful when a sandboxed build or test needs to reach one extra domain (like a package registry mirror) while keeping the rest of your network policy intact.
+`/sandbox` supports per-host network allow/deny rules that layer on top of your configured upstream proxy, instead of replacing it. This lets you permit or block specific hosts for sandboxed commands without reconfiguring your whole proxy setup — useful when a sandboxed build or test needs to reach one extra domain (like a package registry mirror) while keeping the rest of your network policy intact. Rules accept both individual hostnames and **IPv4/IPv6 CIDR ranges**, so you can allow or deny entire subnets in a single rule.
 
 ### Sandbox Session Control
 
