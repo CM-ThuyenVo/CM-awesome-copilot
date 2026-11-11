@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-10
+lastUpdated: 2026-11-11
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -635,6 +635,8 @@ The interval can be specified in seconds (`s`), minutes (`m`), or hours (`h`), a
 
 > **Note**: Scheduled prompts run in the background of the current session and use your active model. They share the session context window, so very frequent scheduling with long responses may consume context rapidly. Use `/compact` if context usage becomes a concern.
 
+**Experimental: masked dialog for agent password prompts**: When experimental features are enabled (`/experimental on`), the CLI can answer git, ssh, and sudo password prompts that arise from agent-run commands by showing a masked input dialog. Without this feature, commands that require an interactive password prompt may hang or fail mid-session. Enable experimental features if you need the agent to drive commands that ask for credentials.
+
 The `/pr auto` command starts a self-paced automation loop that drives the current pull request to CI green. Rather than running continuously, it fixes one failing item per run and paces itself around CI checks to avoid redundant work:
 
 ```
@@ -997,6 +999,8 @@ Run `/config` to open a dedicated sidebar configuration screen inside the CLI, g
 `/sandbox` can keep sandboxing enabled for the current session only, without changing your global setting. Sandboxed commands can use `HTTPS_PROXY` and `HTTP_PROXY` for host-rule traffic when no sandbox proxy is configured, and sandboxed git on github.com can use a `GITHUB_TOKEN` supplied through `credentials.envVars`. When sandboxed commands inherit your host proxy settings, `NO_PROXY` and `ALL_PROXY` are honored too.
 
 **Windows enumerate-only directory grants**: On Windows, the `sandbox.userPolicy.filesystem.enumeratePaths` setting in `settings.json` lets you grant sandboxed commands enumerate-only access to specific directories — they can list directory contents without being allowed to read file contents. This is useful when a tool needs to discover what exists in a path (such as a package cache or build output directory) without needing full read access to every file.
+
+**Sandbox path settings support environment variables**: Sandbox path settings in `settings.json` (such as `sandbox.userPolicy.filesystem.allowedPaths`) now expand environment variables like `$HOME`, `$XDG_CONFIG_HOME`, and `%USERPROFILE%`. This means you can write portable path rules that work across machines and users without hardcoding absolute paths. The original authored expressions are preserved in settings and the editor, so you see the variable form rather than the expanded value.
 
 ### Assisted Permissions Guidance
 
