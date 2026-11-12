@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-11
+lastUpdated: 2026-11-12
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -757,6 +757,8 @@ The `/usage` command displays session metrics such as the number of tokens consu
 /limits predict
 ```
 
+**AI-credit limit top-up**: When usage-based billing is enabled and your session is approaching its AI-credit limit, the CLI offers a top-up notification at 90% usage — before the agent loses access to tools — so you can increase the limit and continue working without interruption. The top-up prompt appears in the session footer and can be dismissed if you prefer to let the limit stand.
+
 The `/compact` command summarizes the conversation history to free up context window space while preserving the thread of the conversation. Use it when your context is getting full but you do not want to start a fresh session:
 
 ```
@@ -926,6 +928,18 @@ export COPILOT_PROVIDER_GHES_HOST=https://ghes.example.com/
 ```
 
 The CLI accepts either the full browser URL (with scheme and trailing slash) or a bare hostname; both forms work without error.
+
+### Running Copilot CLI as a Container
+
+A pre-built container image — `ghcr.io/github/copilot-cli` — is published on every release, making it easy to run Copilot CLI as a headless server for Copilot SDK clients without installing it locally. The image runs the CLI as a non-root user and requires a connection token to start:
+
+```bash
+docker run --rm \
+  -e COPILOT_TOKEN=<your-token> \
+  ghcr.io/github/copilot-cli:<version>
+```
+
+Multi-platform images (amd64 and arm64) are published with both version tags (e.g., `v1.0.109`) and channel tags (`stable`, `preview`). This is particularly useful in CI/CD pipelines, cloud environments, and SDK integrations where you want a reproducible, isolated Copilot CLI server without managing local installations.
 
 ### Shell Completion
 
