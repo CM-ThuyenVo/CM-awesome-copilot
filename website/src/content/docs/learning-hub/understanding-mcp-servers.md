@@ -3,7 +3,7 @@ title: 'Understanding MCP Servers'
 description: 'Learn how Model Context Protocol servers extend GitHub Copilot with access to external tools, databases, and APIs.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-22
+lastUpdated: 2026-11-05
 estimatedReadingTime: '8 minutes'
 tags:
   - mcp
@@ -209,7 +209,7 @@ Some MCP servers require authentication to connect to protected resources. GitHu
 - **`client_credentials` grant type**: For fully headless environments where no browser is available and no user interaction is possible (such as server-to-server automation or CI pipelines), MCP servers can authenticate using the OAuth `client_credentials` grant type. This enables machine-to-machine authentication without any browser redirect or device code prompt.
 - **Device code flow (RFC 8628)**: When the CLI runs in a **headless or CI environment** where a browser redirect is not possible, it automatically falls back to the device code flow. You'll see a URL and a code to enter on another device to complete authentication.
 - **`/mcp auth`**: If a token expires or you need to switch accounts, run `/mcp auth` inside a session. This opens the re-authentication UI for any OAuth-enabled MCP server and supports account switching. You can re-authenticate without restarting the session.
-- **Microsoft Entra ID (Azure AD)**: MCP servers that authenticate via Microsoft Entra ID are fully supported. Once you complete the initial login, the CLI caches the authentication and **will not show the consent screen on subsequent connections** — you authenticate once per session rather than every time the server reconnects.
+- **Microsoft Entra ID (Azure AD)**: MCP servers that authenticate via Microsoft Entra ID are fully supported. Once you complete the initial login, the CLI caches the authentication and **will not show the consent screen on subsequent connections** — you authenticate once per session rather than every time the server reconnects. On Windows and macOS, the CLI uses **OneAuth** as the default Entra sign-in path. When Copilot CLI preauthorization is unavailable, the CLI automatically falls back to the VS Code registration for Entra authentication, so authentication continues to work seamlessly in mixed-tool environments.
 - **API keys via environment variables**: Pass secrets through the `env` field in the MCP server configuration (see examples above). Never hardcode credentials in `.mcp.json`.
 - **`${input:variableName}` prompts**: VS Code will prompt for these values at runtime, keeping secrets out of committed files.
 
@@ -337,6 +337,7 @@ You can also open the `/mcp` manager while the agent is working to toggle server
 - **Document your servers**: Add comments or a README explaining which MCP servers your project uses and why.
 - **Version control carefully**: Commit `.mcp.json` or `.vscode/mcp.json` for shared server configurations, but use `.gitignore` for any files containing credentials.
 - **Test server connectivity**: Verify MCP servers start correctly before relying on them in agent workflows. Use `/mcp show` to check status and read stderr output in any failure warnings.
+- **Worktree sessions share MCP tool snapshots**: When working across multiple Git worktrees in the same repository, Copilot CLI reuses cached local MCP tool snapshots instead of re-querying each server on every worktree switch. This makes worktree-based workflows faster and reduces startup overhead.
 - **Use the MCP allowlist (experimental)**: In high-security environments, the `MCP_ALLOWLIST` feature flag lets you validate MCP servers against a configured registry, blocking unrecognized servers from loading. MCP servers that are blocked by the allowlist policy are **hidden from `/mcp show`** to avoid confusion — only permitted servers appear in that view. This is an experimental feature for enterprise environments requiring strict control over which MCP servers are permitted.
 
 ### Organization Policy for Third-Party MCP Servers

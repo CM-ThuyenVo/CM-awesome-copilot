@@ -3,11 +3,7 @@ title: 'Installing and Using Plugins'
 description: 'Learn how to find, install, and manage plugins that extend GitHub Copilot CLI with reusable agents, skills, hooks, and integrations.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-22
-relatedArticles:
-  - ./building-custom-agents.md
-  - ./creating-effective-skills.md
-  - ./automating-with-hooks.md
+lastUpdated: 2026-11-08
 prerequisites:
   - GitHub Copilot CLI installed
   - Basic understanding of agents, skills, and hooks
@@ -265,6 +261,10 @@ copilot plugin install "ghapp://air/install?..."
 
 Plugins from trusted repositories install and update automatically before chat runs, and Team-assigned plugins can come from Team-defined GitHub marketplaces. The built-in browser plugin is now named `browser-use`; existing preferences keep working.
 
+### Organization-Managed Plugin Assignments
+
+Organization administrators can assign plugins to users or teams through the GitHub Copilot policy settings. Assigned plugins with the `defaultEnabled` state are automatically installed and activated for all eligible users at session start — no manual installation step is needed. Users can still individually disable these plugins through `/plugin`, and their preferences are preserved across updates. Plugins assigned as `defaultEnabled` appear with a **managed** badge in `/plugin list` to distinguish them from user-installed plugins.
+
 ### Loading Plugins from a Local Directory
 
 You can load plugins directly from a local directory without installing them from a marketplace, using the `--plugin-dir` flag when starting Copilot:
@@ -356,6 +356,7 @@ This section collects behaviors that **changed or were renamed** in past release
 - **`copilot plugins` lost its cross-kind flags.** The `--kind`, `--scope`, `--mcp`, and `--skill` flags were removed. `copilot plugins list` is now an alias of `copilot plugin list` and reports only plugins. Scripts using `copilot plugins install --skill [--scope project]` should switch to `copilot skill add [--project]`, and scripts reading `.plugins` from `copilot plugins list --json` should expect a flat array instead of the previous `{ plugins, errors }` object.
 - **The older top-level `marketplaces` setting was removed** in favor of `extraKnownMarketplaces` in `.github/copilot-settings.json` (or `config.json`).
 - **Installing plugins directly from a GitHub repository URL, raw URL, or local file path is deprecated** and will be removed in a future release — use marketplace-based installation (`copilot plugin install name@marketplace`) instead.
+- **Plugin instruction rules with `alwaysApply: false` now stay opt-in.** Before **v1.0.107**, a plugin instruction rule with `alwaysApply: false` was applied to every session until the user opened `/instructions` or `/plugins`. Now these rules are not loaded at all until you explicitly enable them in `/instructions`. If you have a plugin that included `alwaysApply: false` rules expecting them to be active by default, upgrade to v1.0.107 or later and enable those rules manually.
 
 ## Common Questions
 
