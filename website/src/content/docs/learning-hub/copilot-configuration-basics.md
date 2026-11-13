@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-12
+lastUpdated: 2026-11-13
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -1019,6 +1019,33 @@ Run `/config` to open a dedicated sidebar configuration screen inside the CLI, g
 ### Assisted Permissions Guidance
 
 In Assisted permission mode, the `assistedApprovalInstructions` setting lets you supply your own guidance to the permission judge, so confirmation decisions reflect your team's norms (for example, which commands are always safe to run).
+
+### Enterprise-Managed Shell Permission Rules
+
+Organization administrators can define managed Shell, Bash, and PowerShell permission rules that apply across all sessions for enrolled users. These rules now support **regular expressions** in addition to literal command strings, so an admin can write a single pattern to match a family of commands rather than enumerating each one:
+
+```json
+{
+  "shellPermissions": {
+    "bash": {
+      "allow": ["^npm (ci|install|run)\\b", "^git (status|log|diff)\\b"],
+      "deny": ["^(sudo|su)\\b", "^rm -rf"]
+    }
+  }
+}
+```
+
+Regular expressions follow the ECMAScript syntax and are matched against the full command string. Literal strings without regex metacharacters behave as before — adding regex support is fully backward-compatible.
+
+### Remote Host Session Creation
+
+The `--host-allow-session-creation` startup flag lets remote clients create new sessions on a CLI host for one launch, without permanently changing your saved hosting settings:
+
+```bash
+copilot --host-allow-session-creation
+```
+
+This is useful when you want to temporarily open the CLI for remote session creation — for example, letting an automated workflow connect and start a session — without altering your persistent host configuration. The flag applies only to the current invocation; your saved settings remain unchanged.
 
 ### Memory and Session Import
 
