@@ -3,7 +3,7 @@ title: 'Agentic Workflows'
 description: 'Learn what GitHub Agentic Workflows are, how to use community workflows from Awesome Copilot, and how to contribute your own.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-02-27
+lastUpdated: 2026-11-14
 estimatedReadingTime: '7 minutes'
 tags:
   - workflows
@@ -112,6 +112,8 @@ Workflows run automatically based on their configured triggers. You can also:
 - **Trigger manually**: `gh aw run <workflow>`
 - **Monitor runs**: `gh aw status` and `gh aw logs`
 - **Validate locally**: `gh aw compile --validate --no-emit <workflow>.md`
+
+**Sign-in options for `gh aw run`**: When triggering a workflow manually, `gh aw run` accepts several sign-in methods — a GitHub account with usage-based billing, a Microsoft 365 account, or a custom model provider (BYOK) while signed out of GitHub. Run `gh aw run --help` to see the available sign-in flags for your environment.
 
 ### Customizing a Workflow
 
