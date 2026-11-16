@@ -3,7 +3,7 @@ title: 'Installing and Using Plugins'
 description: 'Learn how to find, install, and manage plugins that extend GitHub Copilot CLI with reusable agents, skills, hooks, and integrations.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-08
+lastUpdated: 2026-11-16
 prerequisites:
   - GitHub Copilot CLI installed
   - Basic understanding of agents, skills, and hooks
@@ -259,7 +259,7 @@ Verified skills and plugins can be installed from GitHub install links:
 copilot plugin install "ghapp://air/install?..."
 ```
 
-Plugins from trusted repositories install and update automatically before chat runs, and Team-assigned plugins can come from Team-defined GitHub marketplaces. The built-in browser plugin is now named `browser-use`; existing preferences keep working.
+Plugins from trusted repositories install and update automatically before chat runs, and Team-assigned plugins can come from Team-defined GitHub marketplaces. The built-in browser plugin is now named `browser-use`; existing preferences keep working. Team plugins can be pinned to a **specific branch, tag, or repository subfolder** in the marketplace definition, so your team controls exactly which version is active rather than always tracking the latest.
 
 ### Organization-Managed Plugin Assignments
 
