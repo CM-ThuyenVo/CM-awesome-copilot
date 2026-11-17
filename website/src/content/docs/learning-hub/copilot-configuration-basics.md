@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-16
+lastUpdated: 2026-11-17
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -1036,6 +1036,16 @@ Organization administrators can define managed Shell, Bash, and PowerShell permi
 ```
 
 Regular expressions follow the ECMAScript syntax and are matched against the full command string. Literal strings without regex metacharacters behave as before — adding regex support is fully backward-compatible.
+
+### Managed Feature Flags
+
+Organization administrators can enable or disable specific built-in Copilot CLI features using the `features.*` managed settings namespace. These flags apply across all sessions for enrolled users and take effect even in running sessions:
+
+| Setting | Description |
+|---------|-------------|
+| `features.browserUse` | When set to `false`, disables the built-in Browser Use tool for all users in the organization, including in sessions that are already running. |
+
+This provides a lightweight way to restrict access to specific built-in capabilities at the organization level without modifying individual user configurations.
 
 ### Remote Host Session Creation
 
