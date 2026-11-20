@@ -3,7 +3,7 @@ title: 'Copilot Configuration Basics'
 description: 'Learn how to configure GitHub Copilot at user, workspace, and repository levels to optimize your AI-assisted development experience.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-11-17
+lastUpdated: 2026-11-20
 estimatedReadingTime: '10 minutes'
 tags:
   - configuration
@@ -444,6 +444,7 @@ CLI settings use **camelCase** naming. Key settings added in recent releases:
 | `stayInAutopilot` | Keep the CLI in autopilot mode after an autopilot task completes, instead of returning to interactive mode |
 | `defaultMode` | Startup mode for new interactive sessions (e.g., `interactive`, `autopilot`, `plan`) |
 | `defaultPermissionMode` | Default approval behaviour for new interactive sessions, independent from `defaultMode` |
+| `showTimelineTimestamps` | Show start times, end times, and elapsed durations on timeline items |
 
 > **Note**: Older snake_case names (e.g., `include_gitignored`, `auto_updates_channel`) are still accepted for backward compatibility, but camelCase is now the preferred format.
 
@@ -470,7 +471,9 @@ The model picker opens in a **full-screen view** with inline reasoning effort ad
 
 **Managed fusion model and `fusionTier`**: When your organization or account is assigned a managed model named `fusion`, sessions start on **Auto** and the `fusionTier` setting controls the quality tier used for routing. Set `fusionTier` in `/config` (or `.github/copilot/settings.json`) to `high` or `max` to request higher-capability routing for that repository. The `/model` picker marks the administrator-assigned managed model as the default when it is available.
 
-**Model family aliases**: Instead of typing a full model name, you can use short family aliases in the model setting: `opus`, `sonnet`, `haiku` (Anthropic), and `gpt`, `gemini` (Google/OpenAI). The CLI resolves the alias to the latest available model in that family. This is especially useful in scripts or configuration files where you want to track the best model in a family without hardcoding a version string. Current models include **Claude Opus 5** and **Claude Fable 5.1**, **Claude Fable 5.2** (Anthropic, available under **New models** when your account is enrolled), **Grok 4.5** and **Grok 4.6** (xAI, with `xhigh` reasoning effort support), **Gemini 3.7 Flash** (Google), **GPT-6 Astra** and **GPT-6.1 Terra** (OpenAI, available under **New models** when your account is enrolled). The model picker also periodically retires older models no longer worth recommending, so don't be surprised if a model you previously pinned disappears from the list — check [Compatibility and Migration Notes](#compatibility-and-migration-notes) if that happens.
+**Managing custom provider models**: Use **Ctrl+X → A** in the model picker to add a custom provider model and optionally switch to it immediately. You can also manage your configured provider models directly from the `/model` picker — no need to edit config files manually to register BYOK models.
+
+**Model family aliases**: Instead of typing a full model name, you can use short family aliases in the model setting: `opus`, `sonnet`, `haiku` (Anthropic), and `gpt`, `gemini` (Google/OpenAI). The CLI resolves the alias to the latest available model in that family. This is especially useful in scripts or configuration files where you want to track the best model in a family without hardcoding a version string. Current models include **Claude Opus 5** and **Claude Fable 5.1**, **Claude Fable 5.2** (Anthropic, available under **New models** when your account is enrolled), **Grok 4.5** and **Grok 4.6** (xAI, with `xhigh` reasoning effort support), **Gemini 3.7 Flash** and **Gemini 4 Hydrogen** (Google, Gemini 4 Hydrogen supports **Extra High** reasoning effort when your account is enrolled), **GPT-6 Astra**, **GPT-6.1 Terra**, and **GPT-6.2 Astra** (OpenAI, available under **New models** when your account is enrolled), and **MAI-Code-2-Flash** (Microsoft, available under **New models**). The model picker also periodically retires older models no longer worth recommending, so don't be surprised if a model you previously pinned disappears from the list — check [Compatibility and Migration Notes](#compatibility-and-migration-notes) if that happens.
 
 **Model fallback lists**: Custom agents can set `model` to a list of several models instead of a single name. Copilot tries each one in order until it finds one available to your account — useful when your preferred model is temporarily rate-limited or not enrolled. Pair this with `model-policy: required` to keep the agent restricted to that list even if you try to switch models mid-session. See [Building Custom Agents](../building-custom-agents/) for the frontmatter syntax.
 
@@ -1013,6 +1016,22 @@ Run `/config` to open a dedicated sidebar configuration screen inside the CLI, g
 `/sandbox` can keep sandboxing enabled for the current session only, without changing your global setting. Sandboxed commands can use `HTTPS_PROXY` and `HTTP_PROXY` for host-rule traffic when no sandbox proxy is configured, and sandboxed git on github.com can use a `GITHUB_TOKEN` supplied through `credentials.envVars`. When sandboxed commands inherit your host proxy settings, `NO_PROXY` and `ALL_PROXY` are honored too.
 
 **Windows enumerate-only directory grants**: On Windows, the `sandbox.userPolicy.filesystem.enumeratePaths` setting in `settings.json` lets you grant sandboxed commands enumerate-only access to specific directories — they can list directory contents without being allowed to read file contents. This is useful when a tool needs to discover what exists in a path (such as a package cache or build output directory) without needing full read access to every file.
+
+**Windows sandbox package queries**: On Windows, sandboxed commands can query installed packages by default. Set `sandbox.userPolicy.capabilities` to `[]` in your settings to opt out if you need a stricter sandbox that blocks package-manager queries.
+
+**macOS Mach service lookups**: On macOS, the `sandbox.userPolicy.seatbelt.extraMachLookups` setting allows sandboxed commands to access specific Mach services by name — without enabling full Keychain access. Use this when a tool needs to communicate with a specific system service (such as a signing daemon or notarization service) without opening broader access:
+
+```json
+{
+  "sandbox": {
+    "userPolicy": {
+      "seatbelt": {
+        "extraMachLookups": ["com.apple.security.codesigning"]
+      }
+    }
+  }
+}
+```
 
 **Sandbox path settings support environment variables**: Sandbox path settings in `settings.json` (such as `sandbox.userPolicy.filesystem.allowedPaths`) now expand environment variables like `$HOME`, `$XDG_CONFIG_HOME`, and `%USERPROFILE%`. This means you can write portable path rules that work across machines and users without hardcoding absolute paths. The original authored expressions are preserved in settings and the editor, so you see the variable form rather than the expanded value.
 
