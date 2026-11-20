@@ -3,7 +3,7 @@ title: 'Automating with Hooks'
 description: 'Learn how to use hooks to automate lifecycle events like formatting, linting, and governance checks during Copilot agent sessions.'
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-09-22
+lastUpdated: 2026-11-08
 estimatedReadingTime: '8 minutes'
 tags:
   - hooks
@@ -584,6 +584,18 @@ When hooks are defined inside a **plugin**, Copilot CLI automatically injects tw
 |----------|-------------|
 | `CLAUDE_PROJECT_DIR` | Absolute path to the working project directory |
 | `CLAUDE_PLUGIN_DATA` | Absolute path to the plugin's persistent data directory |
+| `COPILOT_HOOK_DEPTH` | Depth of the current hook invocation (0 for hooks called directly by the main session, incremented for hooks called inside hook-launched sessions) |
+
+`COPILOT_HOOK_DEPTH` is useful for preventing infinite recursion in `agentStop` hooks that themselves launch sessions. Check this variable in your script and exit early when depth exceeds your expected maximum:
+
+```bash
+#!/usr/bin/env bash
+# Prevent recursive hook loops in hook-launched sessions
+if [ "${COPILOT_HOOK_DEPTH:-0}" -ge 1 ]; then
+  exit 0  # skip in nested sessions
+fi
+# ...rest of your hook logic
+```
 
 You can also reference these paths as template variables in your hook configuration:
 
@@ -652,6 +664,7 @@ This section collects behavior changes from past releases that may explain histo
 
 - **The `matcher` field bug fixes**: Before **v1.0.36**, `matcher` was silently ignored entirely, so hooks fired for all tool calls regardless of the regex. In **v1.0.63**, a follow-up bug affecting `postToolUse` matchers with pipe-separated patterns (e.g., `"matcher": "Edit|Write"`) was fixed; before that release, those matchers were silently dropped. If a hook using `matcher` doesn't fire selectively as expected, check the CLI version before troubleshooting the hook configuration.
 - **`postToolUse` used to also fire on tool failures.** Before **v1.0.15**, it fired for both successful and failed tool calls. It now only fires on success; failures are reported to the dedicated `postToolUseFailure` event. Migrate any failure-handling logic in a `postToolUse` hook to `postToolUseFailure`.
+- **`sessionStart` hook calling `/clear` or `/new` was multiplied.** Before **v1.0.107**, a `sessionStart` hook that ran `/clear <prompt>` or `/new` caused a new session to start in every session the hook triggered, resulting in multiple sessions being created. This is now fixed — the hook creates exactly one new session.
 
 ## Common Questions
 

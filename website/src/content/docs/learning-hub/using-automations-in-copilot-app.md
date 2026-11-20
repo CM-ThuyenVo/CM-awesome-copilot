@@ -3,7 +3,7 @@ title: "Using Automations in the GitHub Copilot app"
 description: "A practical guide to getting started with Copilot app automations using templates, iterative refinement, and real-world examples."
 authors:
   - GitHub Copilot Learning Hub Team
-lastUpdated: 2026-06-17
+lastUpdated: 2026-11-03
 estimatedReadingTime: "10 minutes"
 tags:
   - copilot-app
@@ -20,6 +20,13 @@ prerequisites:
 ---
 
 Automations are one of the fastest ways to make the GitHub Copilot app useful every day. Instead of manually asking Copilot to do the same recurring work, you save the task once and run it on a schedule or on demand.
+
+Automations come in two flavors:
+
+- **Local automations** run from your machine — they use your local environment, MCP servers, and credentials, and only execute when your computer is on.
+- **Cloud automations** run on GitHub's infrastructure — they continue running even when your computer is off, using the same agent technology as the GitHub Copilot cloud coding agent.
+
+Choose local automations when the task depends on local tools or private credentials, and cloud automations for always-on workflows like nightly issue triage or weekly release notes.
 
 If you are not sure where to begin, start with templates, adapt one to your workflow, and iterate from real runs.
 
@@ -51,9 +58,10 @@ This often produces several concrete automation ideas in one pass. Then turn the
 2. Click **New automation**.
 3. Start from a template or from scratch.
 4. Give it a clear name and a specific prompt.
-5. Choose when it runs (manual, hourly, daily, or weekly).
-6. Optionally set mode, model, and reasoning effort.
-7. Use **Create and run** for the first run so you can immediately inspect output and refine.
+5. Choose **Local** or **Cloud** to set where it runs.
+6. Choose when it runs: manual, on a schedule (hourly, daily, weekly), or triggered by a repository event (new issue, new PR, etc.).
+7. Optionally set mode, model, reasoning effort, and an AI credit limit.
+8. Use **Create and run** for the first run so you can immediately inspect output and refine.
 
 If your first version is only 70% right, that is normal. The fastest path is to iterate from a real run.
 
